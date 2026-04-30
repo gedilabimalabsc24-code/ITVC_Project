@@ -1,0 +1,32 @@
+[
+  {
+    "id": "bb597aeb-7ecf-4df1-bdb4-285666b3b577",
+    "username": "admin",
+    "amount": 150.5,
+    "category": "Food",
+    "description": "",
+    "type": "expense",
+    "date": "2026-04-30T10:00",
+    "created_at": "2026-04-30T22:40:54.565612"
+  },
+  {
+    "id": "949c0b34-18b6-4c8e-9478-fc1851c53beb",
+    "username": "dhruvi",
+    "amount": 70000.0,
+    "category": "Food",
+    "description": "",
+    "type": "income",
+    "date": "2026-05-01T00:35",
+    "created_at": "2026-05-01T00:35:52.963841"
+  },
+  {
+    "id": "59ebff1d-7388-499e-9031-277a12b741a6",
+    "username": "dhruvi",
+    "amount": 60000.0,
+    "category": "Food",
+    "description": "",
+    "type": "expense",
+    "date": "2026-05-01T00:36",
+    "created_at": "2026-05-01T00:36:27.660065"
+  }
+]
