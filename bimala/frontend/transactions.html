@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions - Smart Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+</head>
+<body>
+
+    <!-- Animated Background Orbs -->
+    <div class="bg-orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+    </div>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <div class="sidebar">
+        <h2>💸 Expense Tracker</h2>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{{ url_for('dashboard') }}">
+                    <span class="nav-icon">📊</span> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('analytics') }}">
+                    <span class="nav-icon">📈</span> Analytics
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a href="{{ url_for('transactions') }}">
+                    <span class="nav-icon">🧾</span> Transactions
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('add') }}">
+                    <span class="nav-icon">➕</span> Add Transaction
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-bottom">
+            <a href="{{ url_for('logout') }}" class="btn btn-secondary btn-large" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                <span>🚪</span> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content-area">
+        
+        <div class="page-header">
+            <h1>💸 Smart Expense Tracker</h1>
+            <p>Track. Analyze. Improve.</p>
+        </div>
+
+        <div class="top-header">
+            <h2>Transactions</h2>
+            <a href="{{ url_for('add') }}" class="btn btn-primary" style="text-decoration: none; padding: 10px 20px; font-weight: 600;">+ Add Transaction</a>
+        </div>
+
+        <!-- Calculate Average for Tags -->
+        {% set avg_amount = 0 %}
+        {% if transactions %}
+            {% set sum_amounts = transactions | sum(attribute='amount') %}
+            {% set count = transactions | length %}
+            {% set avg_amount = sum_amounts / count %}
+        {% endif %}
+
+        <!-- Recent Transactions -->
+        <div class="transactions-section glass">
+            
+            <div id="recentTransactions">
+                {% if transactions %}
+                    {% for t in transactions %}
+                        
+                        <!-- Determine Category Icon -->
+                        {% set cat_icon = "🏷️" %}
+                        {% if t.category == "Food" %}{% set cat_icon = "🍔" %}{% endif %}
+                        {% if t.category == "Transport" %}{% set cat_icon = "🚗" %}{% endif %}
+                        {% if t.category == "Entertainment" %}{% set cat_icon = "🍿" %}{% endif %}
+                        {% if t.category == "Shopping" %}{% set cat_icon = "🛍️" %}{% endif %}
+                        {% if t.category == "Utilities" %}{% set cat_icon = "⚡" %}{% endif %}
+
+                        <!-- Determine Tag -->
+                        {% set tag_class = "tag-normal" %}
+                        {% set tag_text = "NORMAL" %}
+                        {% if t.amount > (avg_amount * 1.5) %}
+                            {% set tag_class = "tag-high" %}
+                            {% set tag_text = "HIGH" %}
+                        {% elif t.amount < (avg_amount * 0.5) %}
+                            {% set tag_class = "tag-low" %}
+                            {% set tag_text = "LOW" %}
+                        {% endif %}
+
+                        <!-- Determine Color -->
+                        {% set color_class = "expense" %}
+                        {% if t.type == 'income' %}{% set color_class = "income" %}{% endif %}
+                        {% if t.type == 'transfer' %}{% set color_class = "color-transfer" %}{% endif %}
+
+                        <div class="transaction-row">
+                            <div class="tx-left">
+                                <div class="tx-icon-circle">{{ cat_icon }}</div>
+                                <div class="tx-details">
+                                    <div class="tx-cat-name">{{ t.category or "Unknown" }}</div>
+                                    <div class="tx-desc">{{ t.description or "No description" }} • {{ t.get('date', '')[:10] }}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="tx-right">
+                                <div class="tx-tag {{ tag_class }}">{{ tag_text }}</div>
+                                <div class="amount {{ color_class }}">
+                                    {% if t.type == 'expense' %}-{% elif t.type == 'income' %}+{% endif %}₹{{ "%.2f"|format(t.amount) }}
+                                </div>
+                                <form method="POST" action="{{ url_for('delete', transaction_id=t.id) }}" style="margin: 0;">
+                                    <button type="submit" class="btn-delete-icon" title="Delete">🗑️</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🧾</div>
+                        <h3>No transactions yet 💸</h3>
+                        <p>Start by adding your first transaction!</p>
+                        <a href="{{ url_for('add') }}" class="btn btn-primary" style="margin-top: 1.5rem; display: inline-block; text-decoration: none; padding: 12px 25px; font-weight: 600; font-size: 1.1rem;">+ Add Transaction</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="app-footer">
+            Built with Flask &bull; Smart Finance UI
+        </div>
+
+    </div>
+
+</body>
+</html>

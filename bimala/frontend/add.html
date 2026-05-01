@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Transaction - Smart Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+</head>
+<body>
+
+    <!-- Animated Background Orbs -->
+    <div class="bg-orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+    </div>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <div class="sidebar">
+        <h2>💸 Expense Tracker</h2>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{{ url_for('dashboard') }}">
+                    <span class="nav-icon">📊</span> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('analytics') }}">
+                    <span class="nav-icon">📈</span> Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('transactions') }}">
+                    <span class="nav-icon">🧾</span> Transactions
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a href="{{ url_for('add') }}">
+                    <span class="nav-icon">➕</span> Add Transaction
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-bottom">
+            <a href="{{ url_for('logout') }}" class="btn btn-secondary btn-large" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                <span>🚪</span> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content-area">
+        
+        <div class="page-header">
+            <h1>💸 Smart Expense Tracker</h1>
+            <p>Track. Analyze. Improve.</p>
+        </div>
+
+        <div class="add-transaction-container">
+            <div class="add-header">
+                <h2>➕ Add New Transaction</h2>
+                <p>Record your income, expense, or transfer</p>
+            </div>
+
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div class="flash-messages">
+                  {% for category, message in messages %}
+                    <div class="flash {{ category }}" style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 8px; color: white; margin-bottom: 1rem;">{{ message }}</div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('add') }}" class="add-form glass" style="padding: 2rem;">
+                <div class="form-group">
+                    <label for="transactionType">Transaction Type *</label>
+                    <select name="type" id="transactionType" required>
+                        <option value="">Select type</option>
+                        <option value="expense">📉 Expense</option>
+                        <option value="income">📈 Income</option>
+                        <option value="transfer">🔄 Transfer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Amount *</label>
+                    <input type="number" name="amount" id="amount" step="0.01" required placeholder="0.00" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category *</label>
+                    <div class="select-wrapper">
+                        <select id="category" name="category" required>
+                            <option value="" disabled selected>Select category</option>
+                            <option value="Food">🍔 Food</option>
+                            <option value="Transport">🚗 Transport</option>
+                            <option value="Shopping">🛍️ Shopping</option>
+                            <option value="Utilities">⚡ Utilities</option>
+                            <option value="Entertainment">🍿 Entertainment</option>
+                            <option value="Health">🏥 Health</option>
+                            <option value="Salary">💼 Salary</option>
+                            <option value="Freelance">💻 Freelance</option>
+                            <option value="Investment">📈 Investment</option>
+                            <option value="Other">❓ Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description (Optional)</label>
+                    <input type="text" name="description" id="description" placeholder="Add notes or details...">
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date & Time *</label>
+                    <input type="datetime-local" name="date" id="date" required>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button type="submit" class="btn btn-primary btn-large" style="flex: 1; padding: 12px; font-weight: bold; border-radius: 8px; cursor: pointer; border: none; background: #00e676; color: white;">✅ Add</button>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary btn-large" style="flex: 1; text-decoration: none; text-align: center; padding: 12px; font-weight: bold; border-radius: 8px; background: rgba(255,255,255,0.2); color: white;">❌ Cancel</a>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Footer -->
+        <div class="app-footer">
+            Built with Flask &bull; Smart Finance UI
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('date').value = now.toISOString().slice(0, 16);
+        });
+    </script>
+</body>
+</html>

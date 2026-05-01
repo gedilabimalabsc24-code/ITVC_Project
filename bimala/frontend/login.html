@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Smart Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-container">
+
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div class="flash-messages">
+                  {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+            <!-- Login Card -->
+            <div class="login-card glass" id="loginCard">
+                <div class="login-header">
+                    <h1>💰 Smart Expense Tracker</h1>
+                    <p>Manage your finances smartly</p>
+                </div>
+
+                <form method="POST" action="{{ url_for('login_page') }}">
+                    <input type="hidden" name="action" value="login">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" required placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large">Login</button>
+                </form>
+
+                <div class="divider"><span>OR</span></div>
+
+                <button type="button" class="btn btn-secondary btn-large" onclick="switchToRegister()">
+                    Create Account
+                </button>
+
+                <div class="login-footer">
+                    <p>Demo: Use <strong>admin / 1234</strong></p>
+                </div>
+            </div>
+
+            <!-- Register Card -->
+            <div class="login-card glass" id="registerCard" style="display: none;">
+                <div class="login-header">
+                    <h1>💰 Create Account</h1>
+                    <p>Join Smart Expense Tracker</p>
+                </div>
+
+                <form method="POST" action="{{ url_for('login_page') }}">
+                    <input type="hidden" name="action" value="register">
+                    <div class="form-group">
+                        <label for="registerUsername">Username</label>
+                        <input type="text" name="username" id="registerUsername" required placeholder="Choose a username">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" name="password" id="registerPassword" required placeholder="Create a password" minlength="4">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large">Register</button>
+                </form>
+
+                <div class="divider"><span>OR</span></div>
+
+                <button type="button" class="btn btn-secondary btn-large" onclick="switchToLogin()">
+                    Back to Login
+                </button>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        function switchToRegister() {
+            document.getElementById('registerCard').style.display = 'block';
+            document.getElementById('loginCard').style.display = 'none';
+        }
+        function switchToLogin() {
+            document.getElementById('registerCard').style.display = 'none';
+            document.getElementById('loginCard').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

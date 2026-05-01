@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Analytics - Smart Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+</head>
+<body>
+
+    <!-- Animated Background Orbs -->
+    <div class="bg-orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+    </div>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <div class="sidebar">
+        <h2>💸 Expense Tracker</h2>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{{ url_for('dashboard') }}">
+                    <span class="nav-icon">📊</span> Dashboard
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a href="{{ url_for('analytics') }}">
+                    <span class="nav-icon">📈</span> Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('transactions') }}">
+                    <span class="nav-icon">🧾</span> Transactions
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('add') }}">
+                    <span class="nav-icon">➕</span> Add Transaction
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-bottom">
+            <a href="{{ url_for('logout') }}" class="btn btn-secondary btn-large" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                <span>🚪</span> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content-area">
+        
+        <div class="page-header">
+            <h1>💸 Smart Expense Tracker</h1>
+            <p>Track. Analyze. Improve.</p>
+        </div>
+
+        <div class="top-header">
+            <h2>Expense Analytics</h2>
+        </div>
+
+        {% if data %}
+            <!-- Summary Cards -->
+            <div class="card-row">
+                <div class="glass" style="transition: all 0.3s ease;">
+                    <h2>🏆 Top Category</h2>
+                    <div class="amount" >
+                        {% if category_totals %}
+                            {% set top_cat = category_totals|dictsort(false, 'value')|reverse|first %}
+                            {{ top_cat[0] }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="glass" style="transition: all 0.3s ease;">
+                    <h2>📊 Total Transactions</h2>
+                    <div class="amount balance">{{ data|length }}</div>
+                </div>
+                <div class="glass" style="transition: all 0.3s ease;">
+                    <h2>📅 This Month Spent</h2>
+                    <div class="amount expense">₹{{ "%.2f"|format(this_month_expense) }}</div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <!-- Pie Chart -->
+                <div class="glass">
+                    <h3 style="color: white; margin-bottom: 1.5rem; text-align: center;">Category Breakdown</h3>
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Bar Chart -->
+                <div class="glass">
+                    <h3 style="color: white; margin-bottom: 1.5rem; text-align: center;">Monthly Trend</h3>
+                    <div class="chart-container">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">📊</div>
+                <h3>No data for analytics</h3>
+                <p>Add transactions to see insights</p>
+            </div>
+        {% endif %}
+
+        <!-- Footer -->
+        <div class="app-footer">
+            Built with Flask &bull; Smart Finance UI
+        </div>
+
+    </div>
+
+    <script>
+        // Data from Flask backend
+        const categoryData = {{ category_totals | tojson }};
+        const monthlyData = {{ monthly_data | tojson }};
+
+        // Initialize charts only if canvas elements exist and data is present
+        const categoryCanvas = document.getElementById('categoryChart');
+        const monthlyCanvas = document.getElementById('monthlyChart');
+
+        if (categoryCanvas && Object.keys(categoryData).length > 0) {
+            const categoryCtx = categoryCanvas.getContext('2d');
+            const colors = ['#ff5252', '#00e676', '#2196f3', '#ffc107', '#9c27b0', '#00bcd4', '#e91e63', '#4caf50', '#ff9800'];
+            new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(categoryData),
+                    datasets: [{
+                        data: Object.values(categoryData),
+                        backgroundColor: colors.slice(0, Object.keys(categoryData).length),
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.9)',
+                                font: { size: 12 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        if (monthlyCanvas && Object.keys(monthlyData).length > 0) {
+            const sortedMonths = Object.keys(monthlyData).sort();
+            const incomeValues = sortedMonths.map(m => monthlyData[m].income);
+            const expenseValues = sortedMonths.map(m => monthlyData[m].expense);
+            const monthlyCtx = monthlyCanvas.getContext('2d');
+            new Chart(monthlyCtx, {
+                type: 'bar',
+                data: {
+                    labels: sortedMonths,
+                    datasets: [
+                        {
+                            label: 'Income',
+                            data: incomeValues,
+                            backgroundColor: '#00e676',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Expense',
+                            data: expenseValues,
+                            backgroundColor: '#ff5252',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.9)',
+                                font: { size: 12 }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: 'rgba(255, 255, 255, 0.7)' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: 'rgba(255, 255, 255, 0.7)' }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

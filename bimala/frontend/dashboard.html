@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Smart Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+</head>
+<body>
+
+    <!-- Animated Background Orbs -->
+    <div class="bg-orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+    </div>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <div class="sidebar">
+        <h2>💸 Expense Tracker</h2>
+        <ul class="nav-menu">
+            <li class="nav-item active">
+                <a href="{{ url_for('dashboard') }}">
+                    <span class="nav-icon">📊</span> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('analytics') }}">
+                    <span class="nav-icon">📈</span> Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('transactions') }}">
+                    <span class="nav-icon">🧾</span> Transactions
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('add') }}">
+                    <span class="nav-icon">➕</span> Add Transaction
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-bottom">
+            <a href="{{ url_for('logout') }}" class="btn btn-secondary btn-large" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                <span>🚪</span> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content-area">
+        
+        <div class="page-header">
+            <h1>💸 Smart Expense Tracker</h1>
+            <p>Track. Analyze. Improve.</p>
+        </div>
+
+        <div class="top-header">
+            <h2>Dashboard Overview</h2>
+            <a href="{{ url_for('add') }}" class="btn btn-primary" style="text-decoration: none; padding: 10px 20px; font-weight: 600;">+ Add Transaction</a>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="card-row">
+            <div class="glass income-card">
+                <div class="icon">💰</div>
+                <h2>Total Income</h2>
+                <div class="amount income">₹{{ "%.2f"|format(total_income) }}</div>
+            </div>
+            <div class="glass expense-card">
+                <div class="icon">💸</div>
+                <h2>Total Expense</h2>
+                <div class="amount expense">₹{{ "%.2f"|format(total_expense) }}</div>
+            </div>
+            <div class="glass balance-card">
+                <div class="icon">📊</div>
+                <h2>Current Balance</h2>
+                <div class="amount balance">₹{{ "%.2f"|format(balance) }}</div>
+            </div>
+        </div>
+
+        <!-- Smart Insights Panel -->
+        <div class="insight-card glass" style="margin-top: auto;">
+            <div class="insight-content">
+                <h3>🤖 Smart Insights</h3>
+                <p id="insightMessage">{{ insight_message }}</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="app-footer">
+            Built with Flask &bull; Smart Finance UI
+        </div>
+
+    </div>
+
+</body>
+</html>
