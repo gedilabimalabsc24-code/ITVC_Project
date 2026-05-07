@@ -2,11 +2,12 @@
 
 <!-- HERO — pitch black → deep indigo → royal violet → vivid purple → orchid → neon lilac -->
 <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=0:0a0018,15:1e0050,35:4a10a0,55:7b2ff7,75:b040e0,90:e070ff,100:f8d0ff&section=header&text=💸%20Smart%20Expense%20Tracker&fontSize=52&fontAlignY=45&fontColor=ffffff&animation=fadeIn"/>
-
 <a href="https://git.io/typing-svg">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=d966ff&center=true&vCenter=true&width=600&lines=Track+your+spending+%F0%9F%92%B8;Visualize+your+finances+%F0%9F%93%88;Built+with+Flask+%2B+Glassmorphism+%F0%9F%8E%A8;Smart+Insights+in+real-time+%F0%9F%A7%A0" alt="Typing SVG"/>
+  <img 
+    src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=d966ff&center=true&vCenter=true&width=600&lines=Smart+Expense+Tracker;Built+with+Flask" 
+    alt="Typing SVG"
+  />
 </a>
-
 <br/><br/>
 
 <a href="#"><img src="https://img.shields.io/badge/Flask-2.3.2-000000?style=for-the-badge&logo=flask&logoColor=white"/></a>
