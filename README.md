@@ -1,5 +1,3 @@
-# 💸 Smart Expense Tracker
-
 <div align="center">
 
 <!-- HERO — pitch black → deep indigo → royal violet → vivid purple → orchid → neon lilac -->
@@ -129,7 +127,6 @@ all in real time.
 </table>
 
 <br/>
-```
 <!-- ================================================================== -->
 <!--  ✦  FEATURES                                                        -->
 <!-- ================================================================== -->
@@ -511,20 +508,20 @@ pytest archana/testing_auth/test_logic.py -v
 
 <br/><br/>
 
-<img src="https://skillicons.dev/icons?i=python,flask,html,css,js,github&theme=dark&perline=6"/>
+<div align="center">
 
-<br/><br/>
+| Tech Stack | |
+|:--|:--|
+| 🐍 Backend | Python · Flask · Werkzeug |
+| 🎨 Frontend | HTML5 · CSS3 · Glassmorphism UI |
+| ⚡ JavaScript | Vanilla JS |
+| 📊 Charts | Chart.js Analytics |
+| 💾 Storage | JSON Flat Files |
+| 🔐 Auth | Flask Sessions · Password Hashing |
+| 🧪 Testing | pytest |
+| 🔤 Fonts | Poppins |
 
-| Layer | Technology |
-|:---:|:---|
-| 🐍 **Backend** | Python 3.8+ · Flask 2.3.2 · Werkzeug 2.3.6 |
-| 🎨 **Frontend** | HTML5 · CSS3 Glassmorphism Design System |
-| ⚡ **JS** | Vanilla JavaScript — zero framework overhead |
-| 📊 **Charts** | Chart.js (CDN) — doughnut + bar |
-| 💾 **Storage** | JSON flat files — no database required |
-| 🔐 **Auth** | Flask sessions + Werkzeug password hashing |
-| 🧪 **Testing** | pytest — 5 test files |
-| 🔤 **Fonts** | Google Fonts — Poppins |
+<br/>
 
 </div>
 
