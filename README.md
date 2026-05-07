@@ -61,54 +61,75 @@
 
 <!-- ABOUT — near-black → deep plum → royal violet → bright violet → soft orchid → pale neon -->
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:08001a,15:220050,35:5010a0,55:8030d8,75:b050e8,90:d882ff,100:f5d0ff&height=62&text=✦%20%20About%20the%20Project%20%20✦&fontSize=22&fontColor=ffffff"/>
-
 </div>
 
 <br/>
 
 <table align="center" width="94%">
 <tr>
+
 <td width="25%" align="center" valign="top">
 <br/>
-<img width="64" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg"/>
+<img width="64" src="https://skillicons.dev/icons?i=flask&theme=light"/>
 <br/><br/>
 <b>🏛️ Modular Architecture</b>
 <br/><br/>
-<sub>Three clean domains — Backend, Frontend, and Security — each confined to its own directory with zero cross-coupling.</sub>
+<sub>
+Three clean domains — Backend, Frontend, and Security —
+each confined to its own directory with zero cross-coupling.
+</sub>
 <br/><br/>
 </td>
+
 <td width="25%" align="center" valign="top">
 <br/>
-<img width="64" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"/>
+<img width="64" src="https://skillicons.dev/icons?i=css&theme=light"/>
 <br/><br/>
 <b>🎨 Premium Dark UI</b>
 <br/><br/>
-<sub>Deep-space dark theme, animated floating orbs, rotating conic mesh, twinkling starfield, and neon glassmorphism cards.</sub>
+<sub>
+Deep-space dark theme, animated floating orbs,
+rotating conic mesh, twinkling starfield,
+and neon glassmorphism cards.
+</sub>
 <br/><br/>
 </td>
+
 <td width="25%" align="center" valign="top">
 <br/>
-<img width="64" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"/>
+<img width="64" src="https://skillicons.dev/icons?i=javascript&theme=light"/>
 <br/><br/>
 <b>⚡ Lightweight Stack</b>
 <br/><br/>
-<sub>Flask + vanilla JS + CSS3. No React, no SQL server, no infra setup. Clone → install → run in two minutes flat.</sub>
+<sub>
+Flask + vanilla JS + CSS3.
+No React, no SQL server,
+no infra setup.
+Clone → install → run in two minutes flat.
+</sub>
 <br/><br/>
 </td>
+
 <td width="25%" align="center" valign="top">
 <br/>
-<img width="64" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"/>
+<img width="64" src="https://skillicons.dev/icons?i=python&theme=light"/>
 <br/><br/>
 <b>🧠 Smart Insights</b>
 <br/><br/>
-<sub>Algorithmic spend-pattern detection, threshold breach alerts, and category anomaly surfacing — all in real time.</sub>
+<sub>
+Algorithmic spend-pattern detection,
+threshold breach alerts,
+and category anomaly surfacing —
+all in real time.
+</sub>
 <br/><br/>
 </td>
+
 </tr>
 </table>
 
 <br/>
-
+```
 <!-- ================================================================== -->
 <!--  ✦  FEATURES                                                        -->
 <!-- ================================================================== -->
