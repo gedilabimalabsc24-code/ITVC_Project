@@ -42,8 +42,6 @@
 
 ### 🌌 Smart Expense Tracker UI Showcase
 
-<img src="https://capsule-render.vercel.app/api?type=rect&color=0:1a0b3d,50:5b21b6,100:ec4899&height=2"/>
-
 </div>
 
 <br/>
@@ -52,7 +50,7 @@
 
 ## 🏠 Dashboard
 
-<img src="screenshots/dashboard.png" width="95%" alt="Dashboard"/>
+<img src="./screenshots/dashboard.png" width="95%" alt="Dashboard"/>
 
 </div>
 
@@ -62,7 +60,7 @@
 
 ## ➕ Add Transaction
 
-<img src="screenshots/add-transaction.png" width="95%" alt="Add Transaction"/>
+<img src="./screenshots/add-transaction.png" width="95%" alt="Add Transaction"/>
 
 </div>
 
@@ -72,7 +70,7 @@
 
 ## 📈 Analytics
 
-<img src="screenshots/analytics.png" width="95%" alt="Analytics"/>
+<img src="./screenshots/analytics.png" width="95%" alt="Analytics"/>
 
 </div>
 
@@ -82,15 +80,7 @@
 
 ## 🧾 Transactions
 
-<img src="screenshots/transactions.png" width="95%" alt="Transactions"/>
-
-</div>
-
-<br/>
-
-<div align="center">
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=0:ec4899,50:7c3aed,100:1a0b3d&height=2"/>
+<img src="./screenshots/transactions.png" width="95%" alt="Transactions"/>
 
 </div>
 
